@@ -1,0 +1,63 @@
+nav.site-nav
+  width: 200px
+  min-height: 100vh
+  background: $black
+  transition: all 100ms ease-in-out    
+
+  &.is-close
+    transform: translateX(-200px)
+
+  .site-nav-position
+    width: 200px
+    padding: 25px
+    position: fixed
+    background: $black
+    top: 60px
+    left: 0
+    bottom: 0
+
+  .nav-head-text
+    margin: 0
+    padding: 10px 0 0px 0
+    letter-spacing: 1px
+    color: $lightblack  
+
+  .nav-list
+    padding-left: 10px
+    margin: 10px 0
+    list-style: none
+
+  .link
+    margin-bottom: 5px
+
+  .link a
+    display: block
+    color: #fff
+    transition: all 100ms ease-in-out
+
+    &:hover
+      color: $red
+
+  .nav-social
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    position: absolute
+    bottom: 10px
+    left: 0px
+
+    .social-link
+      display: block
+      padding: 5px
+
+    .social-link svg
+      width: 24px
+      height: 24px 
+      fill: #fff
+      transition: all 100ms ease-in-out
+
+    .social-link svg:hover
+      fill: $red 
+
+  
