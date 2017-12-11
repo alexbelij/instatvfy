@@ -21,12 +21,18 @@ var template = `
 </article>`
 
 export default function renderShows(shows) {
+  
+  var $tvShows = ''
+
   shows.forEach(show => {
     var $tvShow = template
       .replace(':img:', show.image ? show.image.medium : 'http://www.med.navy.mil/sites/nhcne/NHCNE/Command/Leaders/image-not-available.jpg')
       .replace(':name:', show.name)
       .replace(':genre:', show.genres)
-
-    $tvShowsContainer.append($tvShow)
+    
+    $tvShows += $tvShow  
   })
+  
+
+  $tvShowsContainer.append($($tvShows).hide().fadeIn(300))
 }

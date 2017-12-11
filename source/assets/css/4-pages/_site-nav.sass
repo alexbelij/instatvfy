@@ -9,7 +9,7 @@ nav.site-nav
 
   .site-nav-position
     width: 200px
-    padding: 25px
+    padding: 25px 0
     position: fixed
     background: $black
     top: 60px
@@ -18,25 +18,32 @@ nav.site-nav
 
   .nav-head-text
     margin: 0
-    padding: 10px 0 0px 0
+    padding: 10px 0 0px 15px
     letter-spacing: 1px
     color: $lightblack  
 
   .nav-list
-    padding-left: 10px
+    padding-left: 0px
     margin: 10px 0
-    list-style: none
+    list-style: none 
 
   .link
+    width: 100%
     margin-bottom: 5px
+    transition: all 100ms ease-in-out
+    display: flex    
 
   .link a
+    width: 100%
     display: block
-    color: #fff
+    padding-left: 22px
+    color: darken(#fff, 30%)
+    border-left: 3px solid transparent
     transition: all 100ms ease-in-out
 
-    &:hover
-      color: $red
+    &:hover, &:focus, &:active
+      color: #fff
+      border-left: 3px solid $red
 
   .nav-social
     width: 100%

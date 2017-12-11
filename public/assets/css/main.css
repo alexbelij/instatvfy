@@ -837,7 +837,7 @@ nav.site-nav .link a {
   -o-transition: all 100ms ease-in-out;
   transition: all 100ms ease-in-out;
 }
-nav.site-nav .link a:hover {
+nav.site-nav .link a:hover, nav.site-nav .link a:active {
   color: #D34B50;
 }
 nav.site-nav .nav-social {

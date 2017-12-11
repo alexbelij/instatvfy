@@ -13,3 +13,10 @@ export function searchShows(query, callback) {
       callback(shows)
     })
 }  
+
+export function getShowsPageTwo (callback) {
+  $.ajax('http://api.tvmaze.com/shows?page=2')
+    .then(shows => {
+      callback(shows)
+    })
+}

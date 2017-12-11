@@ -29,14 +29,17 @@ article.show
       display: flex
       border: none
       
-      button
-        opacity: 0
+    &.is-seen button
+      opacity: 0 
+
+    &.is-liked button.like svg
+      fill: $red   
 
     &:hover
       border: 3px solid $red
 
-      button
-        opacity: 1  
+    &:hover button
+      opacity: 1  
 
 
   .show-modal button
@@ -54,7 +57,7 @@ article.show
     transition: all 100ms ease-in-out
 
     &:hover
-      fill: $red   
+      fill: lighten($red, 10%)   
 
   .show-meta 
     line-height: 1.4

@@ -809,7 +809,7 @@ nav.site-nav.is-close {
 }
 nav.site-nav .site-nav-position {
   width: 200px;
-  padding: 25px;
+  padding: 25px 0;
   position: fixed;
   background: #181D21;
   top: 60px;
@@ -818,27 +818,39 @@ nav.site-nav .site-nav-position {
 }
 nav.site-nav .nav-head-text {
   margin: 0;
-  padding: 10px 0 0px 0;
+  padding: 10px 0 0px 15px;
   letter-spacing: 1px;
   color: #3A4B52;
 }
 nav.site-nav .nav-list {
-  padding-left: 10px;
+  padding-left: 0px;
   margin: 10px 0;
   list-style: none;
 }
 nav.site-nav .link {
+  width: 100%;
   margin-bottom: 5px;
+  -webkit-transition: all 100ms ease-in-out;
+  -o-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 nav.site-nav .link a {
+  width: 100%;
   display: block;
-  color: #fff;
+  padding-left: 22px;
+  color: #b3b3b3;
+  border-left: 3px solid transparent;
   -webkit-transition: all 100ms ease-in-out;
   -o-transition: all 100ms ease-in-out;
   transition: all 100ms ease-in-out;
 }
-nav.site-nav .link a:hover {
-  color: #D34B50;
+nav.site-nav .link a:hover, nav.site-nav .link a:focus, nav.site-nav .link a:active {
+  color: #fff;
+  border-left: 3px solid #D34B50;
 }
 nav.site-nav .nav-social {
   width: 100%;
@@ -919,6 +931,9 @@ article.show .show-modal.is-seen {
 article.show .show-modal.is-seen button {
   opacity: 0;
 }
+article.show .show-modal.is-liked button.like svg {
+  fill: #D34B50;
+}
 article.show .show-modal:hover {
   border: 3px solid #D34B50;
 }
@@ -945,7 +960,7 @@ article.show .show-modal button svg {
   transition: all 100ms ease-in-out;
 }
 article.show .show-modal button svg:hover {
-  fill: #D34B50;
+  fill: #dd7478;
 }
 article.show .show-meta {
   line-height: 1.4;
