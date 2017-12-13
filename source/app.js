@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { getShows, searchShows, getShow } from 'source/api-client'
+import { getShows, searchShows, getTopShows, getShow } from 'source/api-client'
 import renderShows from 'source/render'
 import $tvShowsContainer from 'source/tv-show-container'
 import toggleNav from 'source/toggleNav'
@@ -56,7 +56,7 @@ $(function () {
     $tvShowsContainer.find('.loader-wrap').show()
 
     if (!localStorage.topShows) {
-      getShowsPageTwo(function (shows) {
+      getTopShows(shows => {
         $tvShowsContainer.find('.loader-wrap').hide()
         localStorage.topShows = JSON.stringify(shows)
         renderShows(shows)

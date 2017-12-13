@@ -1,8 +1,7 @@
 {
   "name": "instatvfy",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A search and save shows app ",
-  "main": "index.js",
   "scripts": {
     "public": "mkdir -p public",
     "build-js": "NODE_PATH=. browserify -t [ babelify --presets [ es2015 ] ] source/app.js -o public/assets/js/bundle.js",

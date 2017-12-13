@@ -12118,6 +12118,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getShows = getShows;
 exports.searchShows = searchShows;
+exports.getTopShows = getTopShows;
 exports.getShow = getShow;
 
 var _jquery = require('jquery');
@@ -12129,13 +12130,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getShows(callback) {
   _jquery2.default.ajax('http://api.tvmaze.com/shows').then(function (shows) {
     callback(shows);
-  }).catch(function (err) {
-    console.log(err);
   });
 }
 
 function searchShows(query, callback) {
   _jquery2.default.ajax('http://api.tvmaze.com/search/shows?q=' + query).then(function (shows) {
+    callback(shows);
+  });
+}
+
+function getTopShows(callback) {
+  _jquery2.default.ajax("http://api.tvmaze.com/shows").then(function (shows) {
     callback(shows);
   });
 }
@@ -12234,7 +12239,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     _tvShowContainer2.default.find('.loader-wrap').show();
 
     if (!localStorage.topShows) {
-      getShowsPageTwo(function (shows) {
+      (0, _apiClient.getTopShows)(function (shows) {
         _tvShowContainer2.default.find('.loader-wrap').hide();
         localStorage.topShows = JSON.stringify(shows);
         (0, _render2.default)(shows);
