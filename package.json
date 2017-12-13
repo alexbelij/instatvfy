@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "public": "mkdir -p public",
-    "build-js": "NODE_PATH=. browserify -t [ babelify --presets [ es2015 ] ] source/assets/js/app.js -o public/assets/js/bundle.js",
+    "build-js": "NODE_PATH=. browserify -t [ babelify --presets [ es2015 ] ] source/app.js -o public/assets/js/bundle.js",
     "cp-files": "cp source/assets/css/main.css public/assets/css/main.css",
     "serve": "serve public"
   },

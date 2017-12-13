@@ -12118,7 +12118,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getShows = getShows;
 exports.searchShows = searchShows;
-exports.getShowsPageTwo = getShowsPageTwo;
+exports.getShow = getShow;
 
 var _jquery = require('jquery');
 
@@ -12129,6 +12129,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getShows(callback) {
   _jquery2.default.ajax('http://api.tvmaze.com/shows').then(function (shows) {
     callback(shows);
+  }).catch(function (err) {
+    console.log(err);
   });
 }
 
@@ -12138,9 +12140,11 @@ function searchShows(query, callback) {
   });
 }
 
-function getShowsPageTwo(callback) {
-  _jquery2.default.ajax('http://api.tvmaze.com/shows?page=2').then(function (shows) {
-    callback(shows);
+function getShow(id, callback) {
+  _jquery2.default.ajax('http://api.tvmaze.com/shows/' + id).then(function (show) {
+    callback(show);
+  }).catch(function (err) {
+    console.log(err);
   });
 }
 
@@ -12167,6 +12171,8 @@ var _toggleNav2 = _interopRequireDefault(_toggleNav);
 
 require('source/search-form');
 
+require('source/show-click-event');
+
 var _page = require('page');
 
 var _page2 = _interopRequireDefault(_page);
@@ -12188,6 +12194,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _page2.default)('/search', function (ctx, next) {
     _tvShowContainer2.default.find('.loader-wrap').show();
     _tvShowContainer2.default.find('.show').remove();
+    _tvShowContainer2.default.find('.show-alone').remove();
 
     var query = _qs2.default.parse(ctx.querystring);
     (0, _title2.default)('Search: ' + query.q);
@@ -12206,6 +12213,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _page2.default)('/', function (ctx, next) {
     (0, _title2.default)('Instatvfy | Find & Save Shows');
     _tvShowContainer2.default.find('.show').remove();
+    _tvShowContainer2.default.find('.show-alone').remove();
 
     if (!localStorage.shows) {
       (0, _apiClient.getShows)(function (shows) {
@@ -12222,10 +12230,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _page2.default)('/top-shows', function () {
     (0, _title2.default)('Top Shows | Instatvfy');
     _tvShowContainer2.default.find('.show').remove();
+    _tvShowContainer2.default.find('.show-alone').remove();
     _tvShowContainer2.default.find('.loader-wrap').show();
 
     if (!localStorage.topShows) {
-      (0, _apiClient.getShowsPageTwo)(function (shows) {
+      getShowsPageTwo(function (shows) {
         _tvShowContainer2.default.find('.loader-wrap').hide();
         localStorage.topShows = JSON.stringify(shows);
         (0, _render2.default)(shows);
@@ -12236,7 +12245,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     }
   });
 
+  (0, _page2.default)('/movie', function (ctx, next) {
+    var query = _qs2.default.parse(ctx.querystring);
+    _tvShowContainer2.default.find('.show').remove();
+    _tvShowContainer2.default.find('.show-alone').remove();
+
+    (0, _apiClient.getShow)(query.q, function (show) {
+
+      var showtempl = '\n        <article class="show-alone">\n          <div class="show-container">\n            <div class="img-wrapper">\n              <img src="' + show.image.medium + '"></img>\n            </div>\n            <div class="show-meta-alone">\n              <div class="show-meta-name">' + show.name + '</div>\n              <div class="show-meta-summary">' + show.summary + '</div>\n            </div>\n          <div/>\n        </article>';
+
+      _tvShowContainer2.default.append(showtempl);
+    });
+  });
+
   (0, _page2.default)('*', function () {
+    _tvShowContainer2.default.find('.show').remove();
+    _tvShowContainer2.default.find('.show-alone').remove();
     (0, _title2.default)('Error 404');
     console.log('Not found');
   });
@@ -12244,7 +12268,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _page2.default)();
 });
 
-},{"jquery":1,"page":2,"qs":7,"source/api-client":12,"source/render":14,"source/search-form":15,"source/toggleNav":16,"source/tv-show-container":17,"title":11}],14:[function(require,module,exports){
+},{"jquery":1,"page":2,"qs":7,"source/api-client":12,"source/render":14,"source/search-form":15,"source/show-click-event":16,"source/toggleNav":17,"source/tv-show-container":18,"title":11}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12261,14 +12285,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var $tvShowsContainer = (0, _jquery2.default)('#home-section');
 var $loader = $tvShowsContainer.find('.loader-wrap');
 
-var template = '\n<article class="show">\n  <div class="show-pic">\n    <img src=":img:" alt="Show"/>\n  </div>\n  <a href="">\n    <div class="show-modal">\n      <button class="seen"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z"/></svg></button>\n      <button class="like"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"/></svg></button>\n    </div> \n  </a>\n  <div class="show-meta">\n    <div class="name">:name:</div>\n    <div class="genre">:genre:</div>\n</div>\n</article>';
+var template = '\n<article class="show" data-id=":id:">\n  <div class="show-pic">\n    <img src=":img:" alt="Show"/>\n  </div>\n  <a href="">\n    <div class="show-modal">\n      <button class="seen"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z"/></svg></button>\n      <button class="like"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"/></svg></button>\n    </div> \n  </a>\n  <div class="show-meta">\n    <div class="name">:name:</div>\n    <div class="genre">:genre:</div>\n</div>\n</article>';
 
 function renderShows(shows) {
 
   var $tvShows = '';
 
   shows.forEach(function (show) {
-    var $tvShow = template.replace(':img:', show.image ? show.image.medium : 'http://www.med.navy.mil/sites/nhcne/NHCNE/Command/Leaders/image-not-available.jpg').replace(':name:', show.name).replace(':genre:', show.genres);
+    var $tvShow = template.replace(':id:', show.id).replace(':img:', show.image ? show.image.medium : 'http://www.med.navy.mil/sites/nhcne/NHCNE/Command/Leaders/image-not-available.jpg').replace(':name:', show.name).replace(':genre:', show.genres);
 
     $tvShows += $tvShow;
   });
@@ -12300,6 +12324,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 },{"jquery":1,"page":2}],16:[function(require,module,exports){
 'use strict';
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _page = require('page');
+
+var _page2 = _interopRequireDefault(_page);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var $tvShowsContainer = (0, _jquery2.default)('#home-section');
+
+$tvShowsContainer.on('click', 'article.show', function (e) {
+  e.preventDefault();
+
+  var $tvShowId = (0, _jquery2.default)(this)[0].dataset.id;
+
+  (0, _page2.default)('/movie?q=' + $tvShowId);
+});
+
+},{"jquery":1,"page":2}],17:[function(require,module,exports){
+'use strict';
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -12320,7 +12367,7 @@ function toggleNav() {
   });
 }
 
-},{"jquery":1}],17:[function(require,module,exports){
+},{"jquery":1}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
