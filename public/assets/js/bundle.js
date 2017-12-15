@@ -12127,19 +12127,19 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getShows(callback) {
-  _jquery2.default.ajax('http://api.tvmaze.com/shows').then(function (shows) {
+  _jquery2.default.ajax('https://api.tvmaze.com/shows').then(function (shows) {
     callback(shows);
   });
 }
 
 function searchShows(query, callback) {
-  _jquery2.default.ajax('http://api.tvmaze.com/search/shows?q=' + query).then(function (shows) {
+  _jquery2.default.ajax('https://api.tvmaze.com/search/shows?q=' + query).then(function (shows) {
     callback(shows);
   });
 }
 
 function getShow(id, callback) {
-  _jquery2.default.ajax('http://api.tvmaze.com/shows/' + id).then(function (show) {
+  _jquery2.default.ajax('https://api.tvmaze.com/shows/' + id).then(function (show) {
     callback(show);
   }).catch(function (err) {
     console.log(err);
