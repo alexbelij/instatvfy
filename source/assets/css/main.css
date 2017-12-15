@@ -921,6 +921,14 @@ nav.site-nav .nav-social .social-link svg:hover {
 @media (max-width: 815px) {
   nav.site-nav {
     width: 150px;
+    -webkit-transform: translateX(-200px);
+    -ms-transform: translateX(-200px);
+    transform: translateX(-200px);
+  }
+  nav.site-nav.is-close {
+    -webkit-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    transform: translateX(0px);
   }
   nav.site-nav .site-nav-position {
     width: 150px;
