@@ -12118,7 +12118,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getShows = getShows;
 exports.searchShows = searchShows;
-exports.getTopShows = getTopShows;
 exports.getShow = getShow;
 
 var _jquery = require('jquery');
@@ -12135,12 +12134,6 @@ function getShows(callback) {
 
 function searchShows(query, callback) {
   _jquery2.default.ajax('http://api.tvmaze.com/search/shows?q=' + query).then(function (shows) {
-    callback(shows);
-  });
-}
-
-function getTopShows(callback) {
-  _jquery2.default.ajax("http://api.tvmaze.com/shows").then(function (shows) {
     callback(shows);
   });
 }
@@ -12238,15 +12231,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     _tvShowContainer2.default.find('.show-alone').remove();
     _tvShowContainer2.default.find('.loader-wrap').show();
 
-    if (!localStorage.topShows) {
-      (0, _apiClient.getTopShows)(function (shows) {
+    if (!localStorage.shows) {
+      (0, _apiClient.getShows)(function (shows) {
         _tvShowContainer2.default.find('.loader-wrap').hide();
-        localStorage.topShows = JSON.stringify(shows);
+        localStorage.shows = JSON.stringify(shows);
         (0, _render2.default)(shows);
       });
     } else {
       _tvShowContainer2.default.find('.loader-wrap').hide();
-      (0, _render2.default)(JSON.parse(localStorage.topShows));
+      (0, _render2.default)(JSON.parse(localStorage.shows));
     }
   });
 
@@ -12290,7 +12283,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var $tvShowsContainer = (0, _jquery2.default)('#home-section');
 var $loader = $tvShowsContainer.find('.loader-wrap');
 
-var template = '\n<article class="show" data-id=":id:">\n  <div class="show-pic">\n    <img src=":img:" alt="Show"/>\n  </div>\n  <a href="">\n    <div class="show-modal">\n      <button class="seen"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 960q-152-236-381-353 61 104 61 225 0 185-131.5 316.5t-316.5 131.5-316.5-131.5-131.5-316.5q0-121 61-225-229 117-381 353 133 205 333.5 326.5t434.5 121.5 434.5-121.5 333.5-326.5zm-720-384q0-20-14-34t-34-14q-125 0-214.5 89.5t-89.5 214.5q0 20 14 34t34 14 34-14 14-34q0-86 61-147t147-61q20 0 34-14t14-34zm848 384q0 34-20 69-140 230-376.5 368.5t-499.5 138.5-499.5-139-376.5-368q-20-35-20-69t20-69q140-229 376.5-368t499.5-139 499.5 139 376.5 368q20 35 20 69z"/></svg></button>\n      <button class="like"><?xml version="1.0" encoding="utf-8"?><svg width="25" height="25" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"/></svg></button>\n    </div> \n  </a>\n  <div class="show-meta">\n    <div class="name">:name:</div>\n    <div class="genre">:genre:</div>\n</div>\n</article>';
+var template = '\n<article class="show" data-id=":id:">\n  <div class="show-pic">\n    <img src=":img:" alt="Show"/>\n  </div>\n  <div class="show-meta">\n    <div class="name">:name:</div>\n    <div class="genre">:genre:</div>\n</div>\n</article>';
 
 function renderShows(shows) {
 
@@ -12341,10 +12334,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var $tvShowsContainer = (0, _jquery2.default)('#home-section');
 
-$tvShowsContainer.on('click', 'article.show', function (e) {
+$tvShowsContainer.on('click', '.show', function (e) {
   e.preventDefault();
 
-  var $tvShowId = (0, _jquery2.default)(this)[0].dataset.id;
+  var $tvShowId = (0, _jquery2.default)(this).closest('.show')[0].dataset.id;
 
   (0, _page2.default)('/movie?q=' + $tvShowId);
 });
@@ -12368,7 +12361,7 @@ var $tvShowsContainer = (0, _jquery2.default)('#home-section');
 function toggleNav() {
   (0, _jquery2.default)('#app-body').find('.toggle-nav').on('click', function (ev) {
     (0, _jquery2.default)('#app-body').find('nav.site-nav').toggleClass('is-close');
-    $tvShowsContainer.toggleClass('nav-close');
+    $tvShowsContainer.toggleClass('nav-open');
   });
 }
 
@@ -12386,14 +12379,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $tvShowsContainer = (0, _jquery2.default)('#home-section');
-
-$tvShowsContainer.on('click', 'button.seen', function (ev) {
-  ev.preventDefault();
-  (0, _jquery2.default)(this).closest('.show-modal').toggleClass('is-seen');
-}).on('click', 'button.like', function (ev) {
-  ev.preventDefault();
-  (0, _jquery2.default)(this).closest('.show-modal').toggleClass('is-liked');
-});
 
 exports.default = $tvShowsContainer;
 

@@ -14,20 +14,13 @@ export function searchShows(query, callback) {
     })
 }
 
-export function getTopShows(callback) {
-  $.ajax("http://api.tvmaze.com/shows")
-    .then(shows => {
-      callback(shows)
-    })
-}
-
 export function getShow(id, callback) {
   $.ajax(`http://api.tvmaze.com/shows/${id}`)
-    .then(show => {
-      callback(show)
-    })
+  .then(show => {
+    callback(show)  
+  })
 
-    .catch(err => {
-      console.log(err)
-    })
+  .catch(err => {
+    console.log(err)
+  })
 }

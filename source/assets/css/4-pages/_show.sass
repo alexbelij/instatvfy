@@ -4,60 +4,24 @@ article.show
   margin-right: 5px 
   width: 200px
   height: 350px
+  cursor: pointer
   position: relative
-
-  &:hover .show-modal
-    display: flex 
 
   .show-pic img
     max-width: 100%
     border-radius: 8px
 
-  .show-modal
-    display: none
-    justify-content: space-between
-    width: 200px
-    height: 281px
-    background: rgba(0,0,0,0.6)
-    border: 3px solid $red
-    border-radius: 8px
-    transition: all 100ms ease-in-out
-    position: absolute
-    top: 0
-
-    &.is-seen
-      display: flex
-      border: none
-      
-    &.is-seen button
-      opacity: 0 
-
-    &.is-liked button.like svg
-      fill: $red   
-
-    &:hover
+    &:after
+      content: ''
+      width: 200px
+      height: 281px
+      background: rgba(0,0,0,0.6)
       border: 3px solid $red
-
-    &:hover button
-      opacity: 1  
-
-
-  .show-modal button
-    padding: 10px 20px
-    border: none
-    outline: none
-    box-shadow: none
-
-  .show-modal button.like svg
-    +size(19px)
-
-  .show-modal button svg
-    fill: #aaa
-    +size(22px) 
-    transition: all 100ms ease-in-out
-
-    &:hover
-      fill: lighten($red, 10%)   
+      border-radius: 8px
+      transition: all 100ms ease-in-out
+      position: absolute
+      top: 0
+      z-index: 10 
 
   .show-meta 
     line-height: 1.4
@@ -68,7 +32,8 @@ article.show
     margin-top: 5px
     color: $black
 
-// @media (max-width: 500px)
-//   article.show
-//     width: 100px
-//     height: 175px
+@media (max-width: 815px)
+  article.show
+    width: 45%
+    height: auto
+    text-align: center

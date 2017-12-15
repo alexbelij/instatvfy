@@ -106,6 +106,25 @@ header.main-header
     border-radius: 50%
     border: 1px solid #fff
     +size(40px)
+
+@media (max-width: 815px)
+  header.main-header
+    form.search-form
+      flex: 2
+
+    .logo
+      display: none
+
+    .account-section
+      // display: none
+
+    .username
+      display: none   
+
+@media (max-width: 325px)
+  header.main-header
+    .search-form button[type="submit"]
+      display: none
     
 
     

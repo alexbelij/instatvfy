@@ -5,12 +5,17 @@ article.show-alone
   align-items: center
 
   div.show-container
+    padding: 20px
     margin: 0 auto
     display: flex
-    align-items: flex-end
+    align-items: flex-start
+
+  .img-wrapper 
+    width: 40% 
+    max-width: 400px 
 
   .img-wrapper img
-    width: 250px
+    width: 100%
     border-radius: 7px
 
   .show-meta-alone
@@ -18,28 +23,35 @@ article.show-alone
     margin-left: 20px
 
   .show-meta-name
-    font-size: 20px
+    font-size: 34px
     font-weight: 600
-    margin-bottom: 5px
+    margin-bottom: 0px
     color: $black
+    line-height: 1
+    margin: 10px 0
 
   .show-meta-summary p
     margin: 0  
-    font-size: 16px
-    line-height: 1.3
-    letter-spacing: 0.1px
+    font-size: 15px
+    line-height: 1.5
+    letter-spacing: 0.3px
     text-align: justify
 
 @media (max-width: 815px)
   article.show-alone
 
     div.show-container
-      display: block  
+      display: block
+
+    .img-wrapper
+      width: 100%
+      margin: 0 auto
 
     .img-wrapper img
       min-width: 100%
 
     .show-meta-alone
+      text-align: center
       margin: 0  
 
 

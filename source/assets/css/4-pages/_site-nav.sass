@@ -2,7 +2,9 @@ nav.site-nav
   width: 200px
   min-height: 100vh
   background: $black
-  transition: all 100ms ease-in-out    
+  transition: all 100ms ease-in-out   
+  position: relative
+  z-index: 5
 
   &.is-close
     transform: translateX(-200px)
@@ -68,5 +70,16 @@ nav.site-nav
 
     .social-link svg:hover
       fill: $red 
+
+@media (max-width: 815px)
+  nav.site-nav
+    width: 150px
+
+    .site-nav-position
+      width: 150px
+
+
+
+    
 
   
