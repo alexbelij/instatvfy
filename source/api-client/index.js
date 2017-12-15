@@ -1,21 +1,21 @@
 import $ from 'jquery'
 
 export function getShows(callback) {
-  $.ajax('http://api.tvmaze.com/shows')
+  $.ajax('https://api.tvmaze.com/shows')
     .then(shows => {
       callback(shows)
     })
 }
 
 export function searchShows(query, callback) {
-  $.ajax(`http://api.tvmaze.com/search/shows?q=${query}`)
+  $.ajax(`https://api.tvmaze.com/search/shows?q=${query}`)
     .then(shows => {
       callback(shows)
     })
 }
 
 export function getShow(id, callback) {
-  $.ajax(`http://api.tvmaze.com/shows/${id}`)
+  $.ajax(`https://api.tvmaze.com/shows/${id}`)
   .then(show => {
     callback(show)  
   })
