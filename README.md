@@ -1,5 +1,7 @@
 # Instatvfy
 
+[Demo](https://rayediaz.github.io)
+
 Instatvfy is a simple free to use web application to search and select your favorite shows. 
 
 ## Getting started
