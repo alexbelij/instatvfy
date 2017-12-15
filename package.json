@@ -10,7 +10,7 @@
     "build": "npm run build-js && npm run cp-files"
   },
   "author": "Raimer Encarnacion (rayedpg@outlook.com)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
